@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        docker { image 'jakzal/phpqa:latest' }
+  agent {
+    docker {
+      image 'jakzal/phpqa:latest'
     }
     stages {
         stage('Build') {
@@ -14,4 +15,5 @@ pipeline {
             }
         }
     }
+  }
 }
