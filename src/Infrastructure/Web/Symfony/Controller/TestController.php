@@ -9,9 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class TestController extends AbstractController
 {
     /**
-     * @Route("/test", name="test_index")
+     * @Route("/", name="test_index")
      */
     public function index()
+    {
+        return new JsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/test", name="test_test")
+     */
+    public function test()
     {
         return new JsonResponse(['success' => true]);
     }
