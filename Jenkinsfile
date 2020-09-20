@@ -1,12 +1,16 @@
 pipeline {
-    agent {
-        docker { image 'jakzal/phpqa:latest' }
+  agent {
+    docker {
+      image 'jakzal/phpqa:latest'
     }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'phpstan analyse src'
-            }
-        }
+
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'phpstan analyse src'
+      }
     }
+
+  }
 }
