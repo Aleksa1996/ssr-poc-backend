@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    environment {
+        APP_TEST_ENV_VARIABLE = '5555'
+    }
     stages {
         stage('Build') {
             agent {
@@ -11,10 +14,6 @@ pipeline {
 
         }
         stage('Test') {
-            environment {
-                APP_TEST_ENV_VARIABLE = '5555'
-            }
-
             agent {
                 docker {
                     image 'jakzal/phpqa:latest'
