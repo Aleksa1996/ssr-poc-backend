@@ -13,7 +13,7 @@ class TestController extends AbstractController
      */
     public function index()
     {
-        return new JsonResponse(['success' => true]);
+        return new JsonResponse(['success' => true, 'PERA' => $_SERVER['APP_TEST_ENV_VARIABLE']]);
     }
 
     /**

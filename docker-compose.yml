@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+    php:
+        container_name: 'php'
+        build:
+            context: .
+        env_file:
+            - './.env'
+            - './.env.local'
+        ports:
+            - '1215:1215'
+        volumes:
+            - './:/var/www/html'
+        restart: unless-stopped
+        # command: ["tail", "-f", "/dev/null"]
+        # command: ["/bin/sh","-c","cd /var/www/ && composer install"]
+        # "/usr/local/bin/composer", "install"
