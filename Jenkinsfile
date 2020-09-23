@@ -4,7 +4,7 @@ node {
 
     stage('Build') {
         def dockerfile = 'Dockerfile'
-        def image = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${dockerfile} .")
+        def image = docker.build("my-image:${env.BUILD_ID}", "--target test .")
         image.inside {
             sh 'ls'
         }
