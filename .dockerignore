@@ -1,3 +1,4 @@
-/vendor
-/var/cache
-/var/log
+.git/
+vendor/
+var/cache/
+var/log/

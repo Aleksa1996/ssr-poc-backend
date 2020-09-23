@@ -1,15 +1,14 @@
-version: '3.4'
+version: '3.8'
 
 services:
     php:
         container_name: 'php'
         build:
             context: .
+            target: dev
         env_file:
             - './.env'
             - './.env.local'
-        ports:
-            - '1215:1215'
         volumes:
             - './:/var/www/html'
         restart: unless-stopped

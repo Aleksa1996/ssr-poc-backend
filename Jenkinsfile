@@ -6,12 +6,13 @@ pipeline {
     stages {
         stage('Build') {
             agent {
+                def dockerfile = 'Dockerfile'
+                def customImage = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${dockerfile} .")
                 dockerfile true
             }
             steps {
                 sh 'ls'
             }
-
         }
         stage('Test') {
             agent {
