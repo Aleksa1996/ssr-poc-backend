@@ -1,13 +1,10 @@
 #!/usr/bin/env groovy
 
 node {
-    environment {
-        APP_TEST_ENV_VARIABLE = '5555'
-        DOCKERFILE = 'Dockerfile'
-    }
 
     stage('Build') {
-        def image = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${DOCKERFILE} .")
+        def dockerfile = 'Dockerfile'
+        def image = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${dockerfile} .")
         image.inside {
             sh 'ls'
         }
