@@ -13,14 +13,14 @@ CMD ["swoole:server:run"]
 WORKDIR /var/www/html
 
 # Dev stage
-FROM builder as dev
+FROM builder AS dev
 
 # Test stage
-FROM builder as test
+FROM builder AS test
 
 RUN composer install --no-interaction
 
 # Production stage
-FROM builder as prod
+FROM builder AS prod
 
 RUN composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --no-interaction
