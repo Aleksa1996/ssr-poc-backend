@@ -1,10 +1,10 @@
+#!/usr/bin/env groovy
+
 node {
     environment {
         APP_TEST_ENV_VARIABLE = '5555'
         DOCKERFILE = 'Dockerfile'
     }
-
-    agent any
 
     stage('Build') {
         def image = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${DOCKERFILE} .")
@@ -12,6 +12,7 @@ node {
             sh 'ls'
         }
     }
+
     stage('Test') {
         agent {
             docker {
