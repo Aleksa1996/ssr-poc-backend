@@ -5,7 +5,7 @@ services:
         container_name: 'php'
         build:
             context: .
-            target: dev
+            target: test
         env_file:
             - './.env'
             - './.env.local'

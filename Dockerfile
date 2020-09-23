@@ -18,7 +18,7 @@ FROM builder as dev
 # Test stage
 FROM builder as test
 
-RUN composer install --dev --no-interaction
+RUN composer install --no-interaction
 
 # Production stage
 FROM builder as prod
