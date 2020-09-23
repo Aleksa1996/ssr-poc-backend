@@ -1,16 +1,14 @@
 pipeline {
-    agent none
     environment {
         APP_TEST_ENV_VARIABLE = '5555'
     }
     stages {
         stage('Build') {
-            agent {
-                def dockerfile = 'Dockerfile'
-                def customImage = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${dockerfile} .")
-                dockerfile true
-            }
-            steps {
+
+            def dockerfile = 'Dockerfile'
+            def customImage = docker.build("my-image:${env.BUILD_ID}", "--target test -f ${dockerfile} .")
+
+            customImage.inside{
                 sh 'ls'
             }
         }
