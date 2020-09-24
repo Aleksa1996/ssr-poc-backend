@@ -1,25 +1,32 @@
-#!/usr/bin/env groovy
-
-node {
-
-    stage('Build') {
-        def dockerfile = 'Dockerfile'
-        def image = docker.build("my-image:${env.BUILD_ID}", "--target prod .")
-        image.inside {
-            sh 'ls'
-        }
+pipeline {
+    agent any
+    parameters {
+        string(name: 'dockerImageTarget', defaultValue: 'test', description: 'Image stage build target')
+        string(name: 'dockerImageFile', defaultValue: 'Dockerfile', description: 'Path to Dockerfile')
     }
-
-    stage('Test') {
-        agent {
-            docker {
-                image 'jakzal/phpqa:latest'
+    stages {
+        stage('Init') {
+            script {
+                dockerGv = load 'docker.groovy'
             }
         }
-        steps {
-            sh 'phpstan analyse src'
-            sh 'curl -X GET php:1215'
+        stage('Build') {
+            script {
+                dockerImage = dockerGv.buildImage(dockerImageTarget, dockerImageFile)
+            }
+            dockerImage.inside {
+                sh 'ls'
+            }
+        }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'jakzal/phpqa:latest'
+                }
+            }
+            steps {
+                sh 'phpstan analyse src'
+            }
         }
     }
-
 }
