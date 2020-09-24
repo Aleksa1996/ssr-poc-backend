@@ -16,9 +16,9 @@ pipeline {
             steps {
                 script {
                     dockerImage = dockerGv.buildImage(dockerImageTarget, dockerImageFile)
-                }
-                dockerImage.inside {
-                    sh 'ls'
+                    dockerImage.inside {
+                        sh 'ls'
+                    }
                 }
             }
         }
