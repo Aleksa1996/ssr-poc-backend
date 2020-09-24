@@ -32,10 +32,10 @@ pipeline {
                 sh 'phpstan analyse src'
             }
         }
-        stage('CleanWorkspace') {
-            steps {
-                cleanWs()
-            }
+    }
+    post {
+        cleanup {
+            cleanWs()
         }
     }
 }
