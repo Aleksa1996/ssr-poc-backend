@@ -7,7 +7,7 @@ EXPOSE 1215
 
 COPY . /var/www/html
 
-RUN chmod 775 /var/www/html/entrypoint.sh
+RUN chmod -R 775 /var/www/html
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["swoole:server:run"]
 WORKDIR /var/www/html
