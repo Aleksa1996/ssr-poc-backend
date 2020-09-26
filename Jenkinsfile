@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
     parameters {
         string(name: 'dockerImageTarget', defaultValue: 'test', description: 'Image stage build target')
