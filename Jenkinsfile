@@ -7,10 +7,7 @@ pipeline {
     stages {
         stage('Init') {
             steps {
-                script {
-                    dockerGv = load 'docker.groovy'
-                    dockerGv.buildImage(dockerImageTarget, dockerImageFile)
-                }
+               sh 'docker container build -t ${dockerImageTarget}-app-image:${env.BUILD_ID} --target ${dockerImageTarget} -f ${dockerImageFile} .'
             }
         }
     }
