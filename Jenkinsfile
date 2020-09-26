@@ -17,19 +17,18 @@ pipeline {
                 script {
                     dockerImage = dockerGv.buildImage(dockerImageTarget, dockerImageFile)
                     dockerImage.inside {
-                        sh 'ls'
+                        sh 'php /tools/toolbox list-tools'
                     }
                 }
             }
         }
         stage('Test') {
-            agent {
-                docker {
-                    image 'jakzal/phpqa:latest'
-                }
-            }
             steps {
-                sh 'phpstan analyse src'
+                script {
+                    dockerImage.inside {
+                        sh 'phpstan analyse src'
+                    }
+                }
             }
         }
     }
