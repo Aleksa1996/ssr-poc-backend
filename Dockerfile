@@ -3,7 +3,7 @@ FROM aleksajo/php-swoole as builder
 
 USER root
 EXPOSE 1215
-COPY composer.json composer.lock entrypoint.sh Jenkinsfile /var/www/html/
+COPY composer.json composer.lock entrypoint.sh /var/www/html/
 RUN chmod -R 775 /var/www/html
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["swoole:server:run"]
