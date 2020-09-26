@@ -26,6 +26,7 @@ pipeline {
             steps {
                 script {
                     dockerImage.inside {
+                        sh 'ls'
                         sh 'phpstan analyse src'
                     }
                 }
