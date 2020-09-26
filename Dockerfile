@@ -2,11 +2,8 @@
 FROM aleksajo/php-swoole as builder
 
 USER root
-
 EXPOSE 1215
-
 COPY composer.json composer.lock entrypoint.sh Jenkinsfile /var/www/html/
-
 RUN chmod -R 775 /var/www/html
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["swoole:server:run"]
@@ -34,9 +31,11 @@ RUN composer install --no-interaction  && \
     mkdir -p $TOOLBOX_TARGET_DIR && curl -Ls https://github.com/jakzal/toolbox/releases/download/v$TOOLBOX_VERSION/toolbox.phar -o $TOOLBOX_TARGET_DIR/toolbox && chmod +x $TOOLBOX_TARGET_DIR/toolbox && \
     php $TOOLBOX_TARGET_DIR/toolbox install
 COPY . /var/www/html
+RUN chmod -R 775 /var/www/html
 
 # Production stage
 FROM builder AS prod
 
 RUN composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --no-interaction
 COPY . /var/www/html
+RUN chmod -R 775 /var/www/html
