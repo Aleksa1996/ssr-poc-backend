@@ -9,27 +9,7 @@ pipeline {
             steps {
                 script {
                     dockerGv = load 'docker.groovy'
-                }
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    dockerImage = dockerGv.buildImage(dockerImageTarget, dockerImageFile)
-                    dockerImage.inside {
-                        sh 'ls'
-                        sh 'php /tools/toolbox list-tools'
-                    }
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    dockerImage.inside {
-                        sh 'ls'
-                        sh 'phpstan analyse src'
-                    }
+                    dockerGv.buildImage(dockerImageTarget, dockerImageFile)
                 }
             }
         }
