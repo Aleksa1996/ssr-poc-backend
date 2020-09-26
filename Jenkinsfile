@@ -33,5 +33,15 @@ pipeline {
                 }
             }
         }
+        stage('Publish') {
+            steps {
+                script {
+                    dockerImage.inside {
+                        sh 'ls'
+                        sh 'phpstan analyse src'
+                    }
+                }
+            }
+        }
     }
 }
