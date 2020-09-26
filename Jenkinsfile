@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Init') {
             steps {
-               sh 'docker container build -t ${dockerImageTarget}-app-image:${env.BUILD_ID} --target ${dockerImageTarget} -f ${dockerImageFile} .'
+               sh "docker container build -t ${dockerImageTarget}-app-image:${env.BUILD_ID} --target ${dockerImageTarget} -f ${dockerImageFile} ."
             }
         }
     }
