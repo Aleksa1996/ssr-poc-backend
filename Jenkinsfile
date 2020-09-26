@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh "docker container exec -it ${dockerImageTarget}-app-image-${env.BUILD_ID} phpstan analyse /var/www/html/src"
+                sh "docker container exec ${dockerImageTarget}-app-image-${env.BUILD_ID} phpstan analyse /var/www/html/src"
             }
         }
     }
