@@ -20,6 +20,9 @@ FROM builder AS test
 
 ENV TOOLBOX_TARGET_DIR="/tools"
 ENV TOOLBOX_VERSION="1.27.3"
+ENV PATH="$PATH:$TOOLBOX_TARGET_DIR:$TOOLBOX_TARGET_DIR/.composer/vendor/bin:/tools/QualityAnalyzer/bin:$TOOLBOX_TARGET_DIR/DesignPatternDetector/bin:$TOOLBOX_TARGET_DIR/EasyCodingStandard/bin"
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME=$TOOLBOX_TARGET_DIR/.composer
 
 RUN composer install --no-interaction  && \
     cd /tmp && \
@@ -30,7 +33,6 @@ RUN composer install --no-interaction  && \
     echo "pcov.enabled=0" >> $PHP_INI_DIR/php.ini && \
     mkdir -p $TOOLBOX_TARGET_DIR && curl -Ls https://github.com/jakzal/toolbox/releases/download/v$TOOLBOX_VERSION/toolbox.phar -o $TOOLBOX_TARGET_DIR/toolbox && chmod +x $TOOLBOX_TARGET_DIR/toolbox && \
     php $TOOLBOX_TARGET_DIR/toolbox install
-CMD php $TOOLBOX_TARGET_DIR/toolbox list-tools
 
 # Production stage
 FROM builder AS prod
