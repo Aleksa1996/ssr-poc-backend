@@ -30,7 +30,9 @@ pipeline {
                 sh "docker image build -t ${DOCKER_IMAGE_PROD_TARGET}-${DOCKER_IMAGE_NAME}:${env.BUILD_ID} --target ${DOCKER_IMAGE_PROD_TARGET} -f ${DOCKER_IMAGE_FILE} ."
                 sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
                 sh "docker tag ${DOCKER_IMAGE_PROD_TARGET}-${DOCKER_IMAGE_NAME}:${env.BUILD_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/aleksajo/${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
+                sh "docker tag ${DOCKER_IMAGE_PROD_TARGET}-${DOCKER_IMAGE_NAME}:${env.BUILD_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/aleksajo/${DOCKER_IMAGE_NAME}:latest"
                 sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/aleksajo/${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
+                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/aleksajo/${DOCKER_IMAGE_NAME}:latest"
             }
         }
     }

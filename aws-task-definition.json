@@ -1,0 +1,46 @@
+{
+    "family": "app",
+    "cpu": "512",
+    "memory": "1024",
+    "executionRoleArn": "arn:aws:iam::745959469200:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::745959469200:role/ecsTaskExecutionRole",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "backend-app",
+            "image": "745959469200.dkr.ecr.us-west-2.amazonaws.com/aleksajo/backend-app:latest",
+            "workingDirectory": "/var/www/html",
+            "cpu": 400,
+            "memory": 500,
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 1215,
+                    "hostPort": 1215,
+                    "protocol": "tcp"
+                }
+            ],
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://localhost:1215/test || exit 1"
+                ],
+                "retries": 2,
+                "timeout": 20,
+                "interval": 60,
+                "startPeriod": 250
+            },
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "ECS",
+                    "awslogs-region": "us-west-2",
+                    "awslogs-stream-prefix": "ECS"
+                }
+            }
+        }
+    ]
+}
