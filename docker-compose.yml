@@ -16,4 +16,5 @@ services:
         # command: ["/bin/sh","-c","cd /var/www/ && composer install"]
         # "/usr/local/bin/composer", "install"
         # aws ecs register-task-definition --cli-input-json file://aws-task-definition.json
-        # aws ecs run-task --cluster test --task-definition app:1 --count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[subnet-06701da3a55f3cde7],securityGroups=[sg-0b36fcc6a89245fc8]}"
+        # aws ecs run-task --cluster test --task-definition app:2 --count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[subnet-06701da3a55f3cde7],securityGroups=[sg-0b36fcc6a89245fc8],assignPublicIp='ENABLED'}"
+        # aws ecs describe-services --cluster test --services Backend
